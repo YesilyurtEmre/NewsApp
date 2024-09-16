@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CategoryCell" customModule="NewsApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="38"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="200" height="38"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="wTo-ja-HIN">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="38"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="af4-Ss-WFW" customClass="CategoryCell" customModule="NewsApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="38"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PU8-uE-DID">
+                                        <rect key="frame" x="22" y="4" width="156" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="PU8-uE-DID" secondAttribute="trailing" constant="22" id="8Cp-kP-W5d"/>
+                                    <constraint firstAttribute="bottom" secondItem="PU8-uE-DID" secondAttribute="bottom" constant="4" id="Dg6-dq-PVt"/>
+                                    <constraint firstItem="PU8-uE-DID" firstAttribute="top" secondItem="af4-Ss-WFW" secondAttribute="top" constant="4" id="RXL-T3-zCB"/>
+                                    <constraint firstItem="PU8-uE-DID" firstAttribute="leading" secondItem="af4-Ss-WFW" secondAttribute="leading" constant="22" id="qDT-jW-Spq"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="af4-Ss-WFW" secondAttribute="bottom" id="BSh-z8-8Pe"/>
+                            <constraint firstItem="af4-Ss-WFW" firstAttribute="top" secondItem="wTo-ja-HIN" secondAttribute="top" id="TZ1-up-8nT"/>
+                            <constraint firstItem="af4-Ss-WFW" firstAttribute="leading" secondItem="wTo-ja-HIN" secondAttribute="leading" id="bkV-p3-TgO"/>
+                            <constraint firstAttribute="trailing" secondItem="af4-Ss-WFW" secondAttribute="trailing" id="iEx-xV-XYe"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="userInteractionEnabled" value="NO"/>
+                        </userDefinedRuntimeAttributes>
+                    </stackView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="wTo-ja-HIN" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="TRe-R6-sYi"/>
+                <constraint firstItem="wTo-ja-HIN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="UD9-r1-WBE"/>
+                <constraint firstAttribute="bottom" secondItem="wTo-ja-HIN" secondAttribute="bottom" id="e1w-Qx-llN"/>
+                <constraint firstAttribute="trailing" secondItem="wTo-ja-HIN" secondAttribute="trailing" id="snr-WS-feN"/>
+            </constraints>
+            <size key="customSize" width="200" height="38"/>
+            <connections>
+                <outlet property="categoryCellView" destination="af4-Ss-WFW" id="tsN-Mj-aN4"/>
+                <outlet property="categoryLabel" destination="PU8-uE-DID" id="gME-sb-V44"/>
+            </connections>
+            <point key="canvasLocation" x="135.87786259541986" y="-108.45070422535211"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
