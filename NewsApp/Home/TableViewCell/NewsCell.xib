@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vpj-bq-hg0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="370"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oIa-vW-9wm">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
@@ -51,25 +52,34 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIf-ad-rof">
-                                <rect key="frame" x="0.0" y="246.33333333333334" width="375" height="20.333333333333343"/>
+                                <rect key="frame" x="0.0" y="220" width="375" height="33.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gig-Au-rVB">
-                                <rect key="frame" x="0.0" y="313" width="375" height="20.333333333333314"/>
+                                <rect key="frame" x="0.0" y="273.33333333333331" width="375" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1RV-NE-wgN">
-                                <rect key="frame" x="0.0" y="379.66666666666669" width="375" height="20.333333333333314"/>
+                                <rect key="frame" x="0.0" y="313.66666666666669" width="375" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Zp-YP-YLH">
+                                <rect key="frame" x="0.0" y="354" width="375" height="16"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="epw-yH-PXO"/>
+                                </constraints>
+                            </view>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="7Zp-YP-YLH" firstAttribute="top" secondItem="1RV-NE-wgN" secondAttribute="bottom" constant="20" id="SiL-sy-dfk"/>
                             <constraint firstItem="Gig-Au-rVB" firstAttribute="leading" secondItem="vpj-bq-hg0" secondAttribute="leading" id="UOV-k6-UUZ"/>
                             <constraint firstItem="1RV-NE-wgN" firstAttribute="leading" secondItem="vpj-bq-hg0" secondAttribute="leading" id="Ytu-gz-yiz"/>
                             <constraint firstAttribute="trailing" secondItem="oIa-vW-9wm" secondAttribute="trailing" id="cAo-xo-6eY"/>
@@ -84,7 +94,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="vpj-bq-hg0" secondAttribute="trailing" id="NYg-Ey-rix"/>
-                    <constraint firstAttribute="bottom" secondItem="vpj-bq-hg0" secondAttribute="bottom" id="a0q-8O-3qv"/>
+                    <constraint firstAttribute="bottom" secondItem="vpj-bq-hg0" secondAttribute="bottom" constant="30" id="a0q-8O-3qv"/>
                     <constraint firstItem="vpj-bq-hg0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fhE-Q7-4jP"/>
                     <constraint firstItem="vpj-bq-hg0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="sZP-KB-rNP"/>
                 </constraints>
@@ -96,10 +106,13 @@
                 <outlet property="newsTitleLabel" destination="Gig-Au-rVB" id="msU-8M-jtq"/>
                 <outlet property="tagTitleLabel" destination="kIf-ad-rof" id="RLR-TZ-QkL"/>
             </connections>
-            <point key="canvasLocation" x="329" y="-95"/>
+            <point key="canvasLocation" x="292" y="-75"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="Save2" width="15" height="26"/>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

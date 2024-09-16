@@ -22,3 +22,14 @@ extension UIColor {
         self.init(red: red, green: green, blue: blue, alpha: 1.0)
     }
 }
+
+extension UILabel {
+    func setCustomFont(fontName: String, size: CGFloat) {
+        self.font = UIFont(name: "Montserrat-Bold", size: size)
+        self.font = UIFont(name: "Montserrat-Light", size: size)
+        self.font = UIFont(name: "Montserrat-Medium", size: size)
+        self.font = UIFont(name: "Montserrat-Regular", size: size)
+        self.font = UIFont(name: "Montserrat-Thin", size: size)
+        
+    }
+}

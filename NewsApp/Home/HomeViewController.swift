@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
     var selectedCategoryIndex: IndexPath?
     
     let mockData: [NewsMockData] = [
-        NewsMockData(newsImage: "NewsImage1", tagTitle: "WEBTEKNO", newsTitle: "2023 Nisan ayında en çok satan senda otomobiller!", newsDesc: "Ticaret Bakanlığınca hazırlanan 'İkinci El Motorlu Kara Taşıtlarının Ticareti Hakkında Yönetmelikte Değişiklik Yapılmasına Dair Yönetmelik' Resmi Gazete'de yayımlanarak yürürlüğe girdi. Mevcut mevzuata göre, ikinci el motorlu kara taşıtı ticaretiyle iştigal edilebilmesi için yetki belgesi sahibi olunması gerekirken düzenlemeyle yetki belgesinin iptaline ilişkin hususlar belirlendi. Yönetmelik değişikliğiyle, ilk tescil motorlu kara taşıtı ticareti faaliyetinde bulunan yetkili bayilerin, stoklarında bulunmasına rağmen taşıt satışından kaçınmaları, taşıtın üretici veya distribütör"),
+        NewsMockData(newsImage: "NewsImage1", tagTitle: "WEBTEKNO", newsTitle: "2023 Nisan ayında en çok satan sedan otomobiller!", newsDesc: "Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo.Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGoWise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo. Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo.Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo.Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo..."),
         NewsMockData(newsImage: "NewsImage2", tagTitle: "BLOOMBERG HT", newsTitle: "Wise, Türkiye'deki kullanıcılara para transferi kısıtlaması getirdi; TransferGo ise tüm transferleri durdurdu", newsDesc: "Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo.Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGoWise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo. Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo.Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo.Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo...")
     ]
     
@@ -24,7 +24,10 @@ class HomeViewController: UIViewController {
         
         configureCollectionView()
         configureTableView()
-            
+        
+        titleLabel.font = UIFont(name: "Montserrat-Medium", size: 16)
+        titleLabel.textColor = UIColor("#090816")
+        
     }
     
     private func configureTableView() {
@@ -35,6 +38,8 @@ class HomeViewController: UIViewController {
         selectedCategoryIndex = IndexPath(item: 0, section: 0)
         categoryCollectionView.selectItem(at: selectedCategoryIndex, animated: false, scrollPosition: [])
         updateCellSelection()
+        
+        
     }
     
     private func configureCollectionView() {
@@ -95,12 +100,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.newsImage.image = UIImage(named: newsItem.newsImage)
         cell.tagTitleLabel.text = newsItem.tagTitle
         cell.tagTitleLabel.textColor = .black
+        cell.tagTitleLabel.font = UIFont(name: "Montserrat-Light", size: 12)
         cell.newsTitleLabel.text = newsItem.newsTitle
+        cell.newsTitleLabel.numberOfLines = 2
+        cell.newsTitleLabel.lineBreakMode = .byTruncatingTail
         cell.newsTitleLabel.textColor = UIColor("#090816")
+        cell.newsTitleLabel.font = UIFont(name: "Montserrat-Medium", size: 16)
         cell.newsDescLabel.numberOfLines = 3
         cell.newsDescLabel.lineBreakMode = .byTruncatingTail
         cell.newsDescLabel.text = newsItem.newsDesc
-        cell.newsDescLabel.textColor = .black
+        cell.newsDescLabel.textColor = UIColor("#090816")
+        cell.newsDescLabel.font = UIFont(name: "Montserrat-Regular", size: 14)
+        cell.selectionStyle = .none
+        
         return cell
     }
     

@@ -20,8 +20,14 @@ class NewsDetailVC: UIViewController {
         if let item = newsItem {
             detailNewsImage.image = UIImage(named: item.newsImage)
             detailTagTitleLbl.text = item.tagTitle
+            detailTagTitleLbl.font = UIFont(name: "Montserrat-Light", size: 12)
+            detailTagTitleLbl.textColor = UIColor("#000000")
             detailTitleLbl.text = item.newsTitle
+            detailTitleLbl.font = UIFont(name: "Montserrat-Medium", size: 16)
+            detailTitleLbl.textColor = UIColor("#090816")
             detailNewsDescLbl.text = item.newsDesc
+            detailNewsDescLbl.font = UIFont(name: "Montserrat-Regular", size: 14)
+            detailNewsDescLbl.textColor = UIColor("#090816")
         }
         
         self.navigationItem.hidesBackButton = true
@@ -32,6 +38,6 @@ class NewsDetailVC: UIViewController {
     }
     
     @objc func customBackButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: false)
     }
 }
