@@ -16,26 +16,26 @@ enum Categories: Int, CaseIterable {
     var title: String {
         switch self {
         case .general:
-            return "General"
+            return "Genel"
         case .sport:
-            return "Sport"
+            return "Spor"
         case .economy:
-            return "Economy"
+            return "Ekonomi"
         case .technology:
-            return "Technology"
+            return "Teknoloji"
         }
     }
     
     var tag: String {
         switch self {
         case .general:
-            return "genel"
+            return "general"
         case .sport:
-            return "spor"
+            return "sport"
         case .economy:
-            return "ekonomi"
+            return "economy"
         case .technology:
-            return "teknoloji"
+            return "technology"
         }
     }
 }
