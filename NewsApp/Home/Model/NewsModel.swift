@@ -13,6 +13,7 @@ struct NewsModel: Codable {
 }
 
 struct NewsItem: Codable {
+    let id = UUID()
     let key: String
     let url: String
     let description: String

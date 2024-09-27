@@ -29,10 +29,16 @@ class HomeViewController: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleFavoriteButtonTapped(notification:)),
+            name: .favoriteButtonTapped,
+            object: nil
+        )
         
         configureCollectionView()
         configureTableView()
-        
         titleLabel.font = UIFont(name: "Montserrat-Medium", size: 16)
         titleLabel.textColor = UIColor("#090816")
         tag = Categories.allCases[selectedCategoryIndex?.row ?? 0].tag
@@ -40,15 +46,58 @@ class HomeViewController: BaseVC {
         fetcNews(tag: tag)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    @objc private func handleFavoriteButtonTapped(notification: Notification) {
+        guard let indexPath = notification.object as? IndexPath else {
+            print("Notification içinde indexPath yok")
+            return
+        }
+        
+        let newsItem = news[indexPath.row]
+        print("Selected News Item: \(newsItem)")
+        print("newsItem.id-----\(newsItem.id)")
+        let isFavorite = FavoriteNewsManager.shared.isFavorite(id: newsItem.id)
+        print("bura isFavorite--\(isFavorite)")
+        
+//        if isFavorite {
+//            FavoriteNewsManager.shared.deleteNews(id: newsItem.id)
+//        } else {
+//            FavoriteNewsManager.shared.saveNews(
+//                name: newsItem.name,
+//                source: newsItem.source,
+//                desc: newsItem.description,
+//                image: newsItem.image,
+//                key: newsItem.key,
+//                url: newsItem.url,
+//                id: newsItem.id
+//            )
+//        }
+////        newsTableView.reloadData()
+//        if let cell = newsTableView.cellForRow(at: indexPath) as? NewsCell {
+//            cell.isFavorite = !isFavorite
+//            cell.updateFavImage()
+//        }
+//        NotificationCenter.default.post(name: .favoritesUpdated, object: nil)
+    }
+    
+    
     private func fetcNews(tag: String) {
         indicator.startAnimating()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             
             self.newsService.fetchNews(tag: tag) { response in
                 switch response {
                 case .success(let response):
                     self.news = response.result
-                    print("News: \(self.news)")
                     self.indicator.stopAnimating()
                     self.newsTableView.reloadData()
                 case .failure(let failure):
@@ -135,6 +184,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 print("Failed to load image")
             }
         }
+        cell.indexPath = indexPath
         cell.tagTitleLabel.text = newsItem.source
         cell.tagTitleLabel.textColor = .black
         cell.tagTitleLabel.font = UIFont(name: "Montserrat-Light", size: 12)
@@ -149,7 +199,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.newsDescLabel.textColor = UIColor("#090816")
         cell.newsDescLabel.font = UIFont(name: "Montserrat-Regular", size: 14)
         cell.selectionStyle = .none
+        
         return cell
+        
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -101,6 +101,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="favImage" destination="8Db-rI-p3g" id="KZw-AR-0cW"/>
                 <outlet property="newsDescLabel" destination="1RV-NE-wgN" id="Nbj-bd-q2y"/>
                 <outlet property="newsImage" destination="BeP-1d-xNg" id="LPr-zn-X24"/>
                 <outlet property="newsTitleLabel" destination="Gig-Au-rVB" id="msU-8M-jtq"/>

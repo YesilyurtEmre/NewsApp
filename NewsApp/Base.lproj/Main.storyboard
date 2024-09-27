@@ -159,9 +159,22 @@
                     <view key="view" contentMode="scaleToFill" id="OdK-xK-d6p">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vVN-Sc-KzG">
+                                <rect key="frame" x="40" y="67" width="313" height="20.333333333333329"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Vak-PV-ARa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vVN-Sc-KzG" firstAttribute="top" secondItem="Vak-PV-ARa" secondAttribute="top" constant="8" id="NIU-7n-aP2"/>
+                            <constraint firstItem="vVN-Sc-KzG" firstAttribute="leading" secondItem="Vak-PV-ARa" secondAttribute="leading" constant="40" id="ZWe-64-Mo8"/>
+                            <constraint firstItem="Vak-PV-ARa" firstAttribute="trailing" secondItem="vVN-Sc-KzG" secondAttribute="trailing" constant="40" id="nlI-QX-8Lz"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Search2" id="LFC-eg-LhI"/>
                 </viewController>
@@ -169,22 +182,47 @@
             </objects>
             <point key="canvasLocation" x="1926" y="-277"/>
         </scene>
-        <!--View Controller-->
+        <!--FavoriteVC-->
         <scene sceneID="sgv-9d-YnJ">
             <objects>
-                <viewController id="n8e-IN-2dr" sceneMemberID="viewController">
+                <viewController id="n8e-IN-2dr" customClass="FavoriteVC" customModule="NewsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nf5-bX-KwA">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vY-Bp-aQg">
+                                <rect key="frame" x="16" y="67" width="361" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7Xh-jo-3q0">
+                                <rect key="frame" x="16" y="104" width="361" height="665"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="cSt-98-r9d"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cSt-98-r9d" firstAttribute="bottom" secondItem="7Xh-jo-3q0" secondAttribute="bottom" id="68g-wS-wvL"/>
+                            <constraint firstItem="2vY-Bp-aQg" firstAttribute="leading" secondItem="cSt-98-r9d" secondAttribute="leading" constant="16" id="7Q8-8h-3D7"/>
+                            <constraint firstItem="7Xh-jo-3q0" firstAttribute="leading" secondItem="cSt-98-r9d" secondAttribute="leading" constant="16" id="8gi-eG-Gmt"/>
+                            <constraint firstItem="2vY-Bp-aQg" firstAttribute="top" secondItem="cSt-98-r9d" secondAttribute="top" constant="8" id="UR4-3Y-hSV"/>
+                            <constraint firstItem="2vY-Bp-aQg" firstAttribute="centerX" secondItem="Nf5-bX-KwA" secondAttribute="centerX" id="cDy-AV-D2V"/>
+                            <constraint firstItem="cSt-98-r9d" firstAttribute="trailing" secondItem="7Xh-jo-3q0" secondAttribute="trailing" constant="16" id="hLh-RA-D2J"/>
+                            <constraint firstItem="7Xh-jo-3q0" firstAttribute="top" secondItem="2vY-Bp-aQg" secondAttribute="bottom" constant="16" id="mhO-1a-k3m"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Save2" id="LMi-Ts-PfR"/>
+                    <connections>
+                        <outlet property="favTableView" destination="7Xh-jo-3q0" id="0BP-sE-Cs0"/>
+                        <outlet property="favTitleLbl" destination="2vY-Bp-aQg" id="QYi-uh-ZJn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ba-nx-2z7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3106" y="-277"/>
+            <point key="canvasLocation" x="3104.5801526717555" y="-277.46478873239437"/>
         </scene>
         <!--News Tab Bar Controller-->
         <scene sceneID="mWz-eF-KKc">

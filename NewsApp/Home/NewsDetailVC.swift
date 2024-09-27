@@ -19,7 +19,6 @@ class NewsDetailVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if let newsItem = news {
             
             setImageToImageView(imageURL: newsItem.image) { [weak self] image in
@@ -44,6 +43,7 @@ class NewsDetailVC: BaseVC {
         let customBackButton = UIBarButtonItem(image: UIImage(named: "Shape"), style: .plain, target: self, action: #selector(customBackButtonTapped))
         self.navigationItem.leftBarButtonItem = customBackButton
         customBackButton.tintColor = .black
+        
     }
     
     func setImageToImageView(imageURL: String, completion: @escaping (UIImage?) -> Void) {
@@ -70,6 +70,7 @@ class NewsDetailVC: BaseVC {
                 completion(image)
             }
         }.resume()
+        // SDWebImage
     }
     
     @objc func customBackButtonTapped() {

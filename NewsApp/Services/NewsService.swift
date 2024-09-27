@@ -55,6 +55,7 @@ final class NewsService {
             print("Invalid URL")
             completion(nil)
             return
+            
         }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
@@ -75,7 +76,7 @@ final class NewsService {
             }
         }.resume()
     }
-
+    
     
 }
 
