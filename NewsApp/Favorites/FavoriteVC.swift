@@ -15,7 +15,6 @@ final class FavoriteVC: UIViewController {
     
     
     var news: [FavoriteNewsEntity] = []
-    var favoriteNews: [NewsItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +23,7 @@ final class FavoriteVC: UIViewController {
         favTitleLbl.textColor = UIColor("#090816")
         
         configureTableView()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadFavorites), name: .favoritesUpdated, object: nil)        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadFavorites), name: .favoritesUpdated, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -33,13 +32,18 @@ final class FavoriteVC: UIViewController {
     }
     
     private func loadFavoriteNews() {
-        news = FavoriteNewsManager.shared.getNews()
-        self.favTableView.reloadData()
+        FavoriteNewsManager.shared.fetchData(completion: { news, error in
+            if let news = news {
+                self.news = news
+            } else {
+                self.news = []
+            }
+            self.favTableView.reloadData()
+        })
     }
     
     @objc func reloadFavorites() {
-        news = FavoriteNewsManager.shared.getNews()
-        favTableView.reloadData()
+        loadFavoriteNews()
     }
     
     private func configureTableView() {
@@ -57,9 +61,10 @@ extension FavoriteVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
         let favoriteNews = news[indexPath.row]
-        
+        cell.indexPath = indexPath
         cell.newsTitleLabel.text = favoriteNews.name
         cell.newsDescLabel.text = favoriteNews.desc
+        cell.newsDescLabel.numberOfLines = 3
         cell.tagTitleLabel.text = favoriteNews.source
         //        cell.newsImage.image = UIImage(named: "placeholderImage")
         
@@ -69,17 +74,8 @@ extension FavoriteVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        let isFavorite = FavoriteNewsManager.shared.isFavorite(id: favoriteNews.id!)// force unwrapped id
-        cell.isFavorite = isFavorite
+        cell.isFavorite = true
         cell.updateFavImage()
-        //        newsService.setImageToImageView(imageURL: favoriteNews.image ?? "") { image in
-        //
-        //            if let image = image {
-        //                cell.newsImage.image = image
-        //            }else {
-        //                print("Failed to load image")
-        //            }
-        //        }
         return cell
     }
 }

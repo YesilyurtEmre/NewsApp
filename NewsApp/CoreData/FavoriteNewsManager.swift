@@ -8,103 +8,56 @@
 import CoreData
 import UIKit
 
-protocol CoreDataManagerProtocol {
-    func getNews() -> [FavoriteNewsEntity]
-    func saveNews(name: String, source: String, desc: String, image: String, key: String, url: String, id: UUID)
-    func deleteNews(id: UUID)
-    func isFavorite(id: UUID) -> Bool
-}
-
-final class FavoriteNewsManager: CoreDataManagerProtocol {
-    
-    private let persistentContainer: NSPersistentContainer
-    private let context: NSManagedObjectContext
+final class FavoriteNewsManager: CoreDataProtocol {
     
     static let shared = FavoriteNewsManager()
+    typealias T = FavoriteNewsEntity
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    private init() {
-        persistentContainer = NSPersistentContainer(name: "NewsModel")
-        persistentContainer.loadPersistentStores { (description, error) in
-            if let error = error {
-                fatalError("Unable to load persistent stores: \(error)")
+    func saveData(data: FavoriteNewsEntity, completion: @escaping (Bool, CoreDataError) -> ()) {
+        do {
+            try self.context.save()
+            completion(true, .noError)
+        } catch {
+            completion(false, .savingError)
+        }
+    }
+    
+        func fetchData(completion: @escaping ([FavoriteNewsEntity]?, CoreDataError) -> ()) {
+            let fetchRequest = NSFetchRequest<FavoriteNewsEntity>(entityName: "FavoriteNewsEntity")
+            let sortByCreatedAt = NSSortDescriptor(key: "createdAt", ascending: false)
+            fetchRequest.sortDescriptors = [sortByCreatedAt]
+            do {
+                let games = try context.fetch(fetchRequest)
+                if games.count > 0 {
+                    completion(games, .noError)
+                } else {
+                    completion(nil, .dataError)
+                }
+            } catch {
+                completion(nil, .fetchingError)
             }
         }
-        self.context = persistentContainer.viewContext
-    }
     
-    func getNews() -> [FavoriteNewsEntity] {
-        let fetchRequest: NSFetchRequest<FavoriteNewsEntity> = FavoriteNewsEntity.fetchRequest()
-        let sortByCreatedAt = NSSortDescriptor(key: "createdAt", ascending: false)
-        fetchRequest.sortDescriptors = [sortByCreatedAt]
-        do {
-            let news = try persistentContainer.viewContext.fetch(fetchRequest)
-            print("Fetched news: \(news)")
-            return news
-        } catch let fetchError as NSError {
-            print("Failed to fetch news: \(fetchError), \(fetchError.userInfo)")
-            return []
-        }
-    }
-    
-    func saveNews(name: String, source: String, desc: String, image: String, key: String, url: String, id: UUID) {
-        //        self.context.perform { [weak self] in
-        //            guard let self else { return }
-        let context = persistentContainer.viewContext
-        let entity = FavoriteNewsEntity(context: context)
-        entity.desc = desc
-        entity.name = name
-        entity.source = source
-        entity.key = key
-        entity.url = url
-        entity.image = image
-        entity.createdAt = Date()
-        entity.id = id
-        do {
-            try context.save()
-            print("News saved successfully!")
-        } catch {
-            print("Failed to save news: \(error)")
-        }
-        //        }
-    }
-    
-    func deleteNews(id: UUID) {
-        let context = persistentContainer.viewContext
-        let request: NSFetchRequest<FavoriteNewsEntity> = FavoriteNewsEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
-        
-        do {
-            let newsItems = try context.fetch(request)
-            for newsItem in newsItems {
-                context.delete(newsItem)
+        func deleteData(name: String, completion: @escaping (Bool, CoreDataError) -> ()) {
+            let fetchRequest = NSFetchRequest<FavoriteNewsEntity>(entityName: "FavoriteNewsEntity")
+            fetchRequest.predicate = NSPredicate(format: "name = %@", name)
+            do {
+                if let result = try context.fetch(fetchRequest).first {
+                    context.delete(result)
+                    try context.save()
+                    completion(true, .noError)
+                }
+            } catch {
+                completion(false, .removingError)
             }
-            try context.save()
-        } catch {
-            print("Failed to delete news: \(error)")
         }
-    }
-    
-    func isFavorite(id: UUID) -> Bool {
-        let context = persistentContainer.viewContext
-        print("id---\(id)")
-        let request: NSFetchRequest<FavoriteNewsEntity> = FavoriteNewsEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
-        
-        do {
-            let count = try context.count(for: request)
-            print("count---\(count)")
-            return count > 0
-        } catch {
-            print("Failed to check if news is favorite: \(error)")
-            return false
-        }
-    }
     
     func deleteAllNews() {
-        let fetchRequest: NSFetchRequest<FavoriteNewsEntity> = FavoriteNewsEntity.fetchRequest()
-        
+        let request: NSFetchRequest<FavoriteNewsEntity> = FavoriteNewsEntity.fetchRequest()
+
         do {
-            let newsItems = try context.fetch(fetchRequest)
+            let newsItems = try context.fetch(request)
             for newsItem in newsItems {
                 context.delete(newsItem)
             }
@@ -112,13 +65,6 @@ final class FavoriteNewsManager: CoreDataManagerProtocol {
             print("All news items deleted successfully!")
         } catch {
             print("Failed to delete news: \(error)")
-        }
-    }
-    
-    func saveContext() {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            try? context.save()
         }
     }
 }

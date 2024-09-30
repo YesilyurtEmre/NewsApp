@@ -29,9 +29,7 @@ class NewsCell: UITableViewCell {
     @objc func favImageTapped() {
         guard let tableView = superview as? UITableView,
               let indexPath = tableView.indexPath(for: self) else { return }
-        
         NotificationCenter.default.post(name: .favoriteButtonTapped, object: indexPath)
-        
     }
     
     func updateFavImage() {
@@ -41,6 +39,5 @@ class NewsCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
 }

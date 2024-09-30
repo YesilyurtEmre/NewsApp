@@ -24,7 +24,8 @@ class HomeViewController: BaseVC {
     ]
     
     var news: [NewsItem] = []
-    
+    var favoriteNewsNames: [String] = []
+    var newsId: UUID?
     var tag: String = ""
     
     override func viewDidLoad() {
@@ -43,6 +44,7 @@ class HomeViewController: BaseVC {
         titleLabel.textColor = UIColor("#090816")
         tag = Categories.allCases[selectedCategoryIndex?.row ?? 0].tag
         indicator.startAnimating()
+        loadFavoriteNews()
         fetcNews(tag: tag)
     }
     
@@ -63,32 +65,72 @@ class HomeViewController: BaseVC {
         }
         
         let newsItem = news[indexPath.row]
-        print("Selected News Item: \(newsItem)")
-        print("newsItem.id-----\(newsItem.id)")
-        let isFavorite = FavoriteNewsManager.shared.isFavorite(id: newsItem.id)
-        print("bura isFavorite--\(isFavorite)")
         
-//        if isFavorite {
-//            FavoriteNewsManager.shared.deleteNews(id: newsItem.id)
-//        } else {
-//            FavoriteNewsManager.shared.saveNews(
-//                name: newsItem.name,
-//                source: newsItem.source,
-//                desc: newsItem.description,
-//                image: newsItem.image,
-//                key: newsItem.key,
-//                url: newsItem.url,
-//                id: newsItem.id
-//            )
-//        }
-////        newsTableView.reloadData()
-//        if let cell = newsTableView.cellForRow(at: indexPath) as? NewsCell {
-//            cell.isFavorite = !isFavorite
-//            cell.updateFavImage()
-//        }
-//        NotificationCenter.default.post(name: .favoritesUpdated, object: nil)
+        FavoriteNewsManager.shared.fetchData { favoriteNews, error in
+            if let favoriteNews = favoriteNews {
+                if favoriteNews.contains(where: { $0.name == newsItem.name }) {
+                    FavoriteNewsManager.shared.deleteData(name: newsItem.name) { isSuccess, deleteError in
+                        print("isSuccess--\(isSuccess)")
+
+                        if isSuccess {
+                            NotificationCenter.default.post(name: .favoritesUpdated, object: nil)
+                            if let cell = self.newsTableView.cellForRow(at: indexPath) as? NewsCell {
+                                print("buraya girmiyor mu")
+                                cell.isFavorite = false
+                                cell.updateFavImage()
+                            }
+                        } else {
+                            print("Favori silme hatası: \(deleteError)")
+                        }
+                    }
+                } else {
+                    let data = self.createFavoriteNewsEntity(newsItem: newsItem)
+                    FavoriteNewsManager.shared.saveData(data: data) { isSuccess, saveError in
+                        if isSuccess {
+                            if let cell = self.newsTableView.cellForRow(at: indexPath) as? NewsCell {
+                                cell.isFavorite = true
+                                cell.updateFavImage()
+                            }
+                        } else {
+                            print("Favori kaydetme hatası: \(saveError)")
+                        }
+                    }
+                }
+            } else {
+                let data = self.createFavoriteNewsEntity(newsItem: newsItem)
+                FavoriteNewsManager.shared.saveData(data: data) { isSuccess, saveError in
+                    if isSuccess {
+                        if let cell = self.newsTableView.cellForRow(at: indexPath) as? NewsCell {
+                            cell.isFavorite = true
+                            cell.updateFavImage()
+                        }
+                    } else {
+                        print("Favori kaydetme hatası: \(saveError)")
+                    }
+                }
+            }
+        }
     }
     
+    private func loadFavoriteNews() {
+        FavoriteNewsManager.shared.fetchData { [weak self] news, error in
+            guard let self = self, let news = news else { return }
+            self.favoriteNewsNames = news.compactMap { $0.name }
+        }
+    }
+
+    private func createFavoriteNewsEntity(newsItem: NewsItem) -> FavoriteNewsEntity {
+        let latestNew = FavoriteNewsEntity(context: FavoriteNewsManager.shared.context)
+        latestNew.setValue(newsItem.id, forKey: "id")
+        latestNew.setValue(newsItem.name, forKey: "name")
+        latestNew.setValue(newsItem.source, forKey: "source")
+        latestNew.setValue(newsItem.description, forKey: "desc")
+        latestNew.setValue(newsItem.key, forKey: "key")
+        latestNew.setValue(newsItem.image, forKey: "image")
+        latestNew.setValue(newsItem.url, forKey: "url")
+        latestNew.setValue(Date(), forKey: "createdAt")
+        return latestNew
+    }
     
     private func fetcNews(tag: String) {
         indicator.startAnimating()
@@ -99,12 +141,19 @@ class HomeViewController: BaseVC {
                 case .success(let response):
                     self.news = response.result
                     self.indicator.stopAnimating()
+                    self.updateFavoriteStatus()
                     self.newsTableView.reloadData()
                 case .failure(let failure):
                     self.indicator.stopAnimating()
                     print("failure: \(failure)")
                 }
             }
+        }
+    }
+    
+    private func updateFavoriteStatus() {
+        for (index, newsItem) in self.news.enumerated() {
+            self.news[index].isFavorite = self.favoriteNewsNames.contains(newsItem.name)
         }
     }
     
@@ -177,6 +226,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = newsTableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
         let newsItem = news[indexPath.row]
+        
+        cell.isFavorite = newsItem.isFavorite
+        cell.updateFavImage()
+        
         newsService.setImageToImageView(imageURL: newsItem.image) { image in
             if let image = image {
                 cell.newsImage.image = image
@@ -216,7 +269,3 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
-
-
-
-
