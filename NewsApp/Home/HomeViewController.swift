@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 
 class HomeViewController: BaseVC {
@@ -229,14 +230,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.isFavorite = newsItem.isFavorite
         cell.updateFavImage()
-        
-        newsService.setImageToImageView(imageURL: newsItem.image) { image in
-            if let image = image {
-                cell.newsImage.image = image
-            } else {
-                print("Failed to load image")
-            }
-        }
+        cell.newsImage.sd_setImage(with: URL(string: newsItem.image))
         cell.indexPath = indexPath
         cell.tagTitleLabel.text = newsItem.source
         cell.tagTitleLabel.textColor = .black
@@ -254,8 +248,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         
         return cell
-        
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -66,14 +66,7 @@ extension FavoriteVC: UITableViewDelegate, UITableViewDataSource {
         cell.newsDescLabel.text = favoriteNews.desc
         cell.newsDescLabel.numberOfLines = 3
         cell.tagTitleLabel.text = favoriteNews.source
-        //        cell.newsImage.image = UIImage(named: "placeholderImage")
-        
-        newsService.setImageToImageView(imageURL: favoriteNews.image ?? "") { image in
-            DispatchQueue.main.async {
-                cell.newsImage.image = image
-            }
-        }
-        
+        cell.newsImage.sd_setImage(with: URL(string: favoriteNews.image ?? ""))
         cell.isFavorite = true
         cell.updateFavImage()
         return cell

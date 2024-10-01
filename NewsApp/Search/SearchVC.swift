@@ -139,13 +139,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         cell.newsDescLabel.text = searchNews.description
         cell.newsDescLabel.numberOfLines = 3
         cell.tagTitleLabel.text = searchNews.source
-        
-        newsService.setImageToImageView(imageURL: searchNews.image) { image in
-            DispatchQueue.main.async {
-                cell.newsImage.image = image
-            }
-        }
-        
+        cell.newsImage.sd_setImage(with: URL(string: searchNews.image))
         return cell
     }
     

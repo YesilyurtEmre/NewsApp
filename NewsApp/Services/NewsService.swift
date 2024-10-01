@@ -49,34 +49,5 @@ final class NewsService {
         }
         task.resume()
     }
-    
-    func setImageToImageView(imageURL: String, completion: @escaping (UIImage?) -> Void) {
-        guard let url = URL(string: imageURL) else {
-            print("Invalid URL")
-            completion(nil)
-            return
-            
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error loading image: \(error)")
-                completion(nil)
-                return
-            }
-            
-            guard let data = data, let image = UIImage(data: data) else {
-                print("No data or invalid image format")
-                completion(nil)
-                return
-            }
-            
-            DispatchQueue.main.async {
-                completion(image)
-            }
-        }.resume()
-    }
-    
-    
 }
 

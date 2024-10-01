@@ -39,6 +39,7 @@
 		6F46A28B2C8EB4F700BEFE17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F46A28A2C8EB4F700BEFE17 /* Assets.xcassets */; };
 		6F46A28E2C8EB4F700BEFE17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F46A28C2C8EB4F700BEFE17 /* LaunchScreen.storyboard */; };
 		6F63092C2CAAE9340028EF33 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F63092B2CAAE9340028EF33 /* SearchVC.swift */; };
+		6F63092F2CAC11C10028EF33 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6F63092E2CAC11C10028EF33 /* SDWebImage */; };
 		6F7203D02C8EFC0D00F0D7C1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7203CF2C8EFC0D00F0D7C1 /* HomeViewController.swift */; };
 		6F7203D22C8F0AA900F0D7C1 /* NewsTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7203D12C8F0AA900F0D7C1 /* NewsTabBarController.swift */; };
 		6F9E24442C92D0CA0024C89E /* NewsMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9E24432C92D0CA0024C89E /* NewsMockData.swift */; };
@@ -108,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F63092F2CAC11C10028EF33 /* SDWebImage in Frameworks */,
 				6FE6E6D82C9BE625003D3DD0 /* MaterialActivityIndicator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +299,7 @@
 			name = NewsApp;
 			packageProductDependencies = (
 				6FE6E6D72C9BE625003D3DD0 /* MaterialActivityIndicator */,
+				6F63092E2CAC11C10028EF33 /* SDWebImage */,
 			);
 			productName = NewsApp;
 			productReference = 6F46A27E2C8EB4F600BEFE17 /* NewsApp.app */;
@@ -328,6 +331,7 @@
 			mainGroup = 6F46A2752C8EB4F600BEFE17;
 			packageReferences = (
 				6FE6E6D62C9BE625003D3DD0 /* XCRemoteSwiftPackageReference "MaterialActivityIndicator" */,
+				6F63092D2CAC11C00028EF33 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 6F46A27F2C8EB4F600BEFE17 /* Products */;
 			projectDirPath = "";
@@ -621,6 +625,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6F63092D2CAC11C00028EF33 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.19.7;
+			};
+		};
 		6FE6E6D62C9BE625003D3DD0 /* XCRemoteSwiftPackageReference "MaterialActivityIndicator" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nspavlo/MaterialActivityIndicator";
@@ -632,6 +644,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6F63092E2CAC11C10028EF33 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F63092D2CAC11C00028EF33 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		6FE6E6D72C9BE625003D3DD0 /* MaterialActivityIndicator */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6FE6E6D62C9BE625003D3DD0 /* XCRemoteSwiftPackageReference "MaterialActivityIndicator" */;
