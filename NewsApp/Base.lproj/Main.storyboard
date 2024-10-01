@@ -152,10 +152,10 @@
             </objects>
             <point key="canvasLocation" x="1125.9541984732823" y="-277.46478873239437"/>
         </scene>
-        <!--View Controller-->
+        <!--SearchVC-->
         <scene sceneID="NmB-zC-Hdu">
             <objects>
-                <viewController id="HoD-R3-z8Q" sceneMemberID="viewController">
+                <viewController id="HoD-R3-z8Q" customClass="SearchVC" customModule="NewsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OdK-xK-d6p">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -166,17 +166,41 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="881-zg-8M9">
+                                <rect key="frame" x="0.0" y="103.33333333333331" width="393" height="65"/>
+                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="4In-5n-xZr"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="k2k-Ki-SUt">
+                                <rect key="frame" x="16" y="184.33333333333331" width="361" height="568.66666666666674"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Vak-PV-ARa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="k2k-Ki-SUt" firstAttribute="leading" secondItem="Vak-PV-ARa" secondAttribute="leading" constant="16" id="Frs-Bn-MgK"/>
+                            <constraint firstItem="Vak-PV-ARa" firstAttribute="trailing" secondItem="881-zg-8M9" secondAttribute="trailing" id="G2i-Oi-ZWD"/>
+                            <constraint firstItem="881-zg-8M9" firstAttribute="top" secondItem="vVN-Sc-KzG" secondAttribute="bottom" constant="16" id="G9S-z1-eGx"/>
                             <constraint firstItem="vVN-Sc-KzG" firstAttribute="top" secondItem="Vak-PV-ARa" secondAttribute="top" constant="8" id="NIU-7n-aP2"/>
                             <constraint firstItem="vVN-Sc-KzG" firstAttribute="leading" secondItem="Vak-PV-ARa" secondAttribute="leading" constant="40" id="ZWe-64-Mo8"/>
+                            <constraint firstItem="Vak-PV-ARa" firstAttribute="bottom" secondItem="k2k-Ki-SUt" secondAttribute="bottom" constant="16" id="cmk-sb-n8w"/>
+                            <constraint firstItem="Vak-PV-ARa" firstAttribute="trailing" secondItem="k2k-Ki-SUt" secondAttribute="trailing" constant="16" id="hwh-N8-rlq"/>
+                            <constraint firstItem="881-zg-8M9" firstAttribute="leading" secondItem="Vak-PV-ARa" secondAttribute="leading" id="kPY-lg-Uxd"/>
                             <constraint firstItem="Vak-PV-ARa" firstAttribute="trailing" secondItem="vVN-Sc-KzG" secondAttribute="trailing" constant="40" id="nlI-QX-8Lz"/>
+                            <constraint firstItem="k2k-Ki-SUt" firstAttribute="top" secondItem="881-zg-8M9" secondAttribute="bottom" constant="16" id="wxu-OZ-fhM"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Search2" id="LFC-eg-LhI"/>
+                    <connections>
+                        <outlet property="searchBarView" destination="881-zg-8M9" id="Epe-Xk-4Eb"/>
+                        <outlet property="searchLbl" destination="vVN-Sc-KzG" id="24k-q4-9bY"/>
+                        <outlet property="searchTableView" destination="k2k-Ki-SUt" id="Sq0-hi-h0v"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4HQ-Mo-UaS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -273,6 +297,9 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemGroupedBackgroundColor">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
