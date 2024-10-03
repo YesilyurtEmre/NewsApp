@@ -7,8 +7,11 @@
 
 import UIKit
 
-final class NewsService {
-    
+ final class NewsService {
+     
+     static let shared = NewsService()
+     private init() {}
+     
     private let headers = [
         "content-type": "application/json",
         "authorization": "apikey \(EndPoints.API_KEY)"

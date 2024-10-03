@@ -10,7 +10,6 @@ import SDWebImage
 
 class NewsDetailVC: BaseVC {
     
-    let newsService = NewsService()
     var newsItem: NewsMockData?
     var news: NewsItem?
     @IBOutlet weak var detailNewsImage: UIImageView!

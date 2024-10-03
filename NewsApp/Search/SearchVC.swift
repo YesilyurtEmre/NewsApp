@@ -12,7 +12,6 @@ class SearchVC: UIViewController {
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var searchBarView: UIView!
     
-    let newsService = NewsService()
     var news: [FavoriteNewsEntity] = []
     var filteredNews: [NewsItem] = []
     var searchedNews: [NewsItem] = []
@@ -107,7 +106,7 @@ class SearchVC: UIViewController {
     }
     
     private func fetchInitialNews() {
-        newsService.fetchNews(tag: "general") { result in
+        NewsService.shared.fetchNews(tag: "general") { result in
             switch result {
             case .success(let newsModel):
                 self.searchedNews = newsModel.result

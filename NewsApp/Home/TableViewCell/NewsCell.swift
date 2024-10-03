@@ -32,6 +32,26 @@ class NewsCell: UITableViewCell {
         NotificationCenter.default.post(name: .favoriteButtonTapped, object: indexPath)
     }
     
+    func configureCell(newsItem: NewsItem) {
+        isFavorite = newsItem.isFavorite
+        updateFavImage()
+        newsImage.sd_setImage(with: URL(string: newsItem.image))
+        tagTitleLabel.text = newsItem.source
+        tagTitleLabel.textColor = .black
+        tagTitleLabel.font = UIFont(name: "Montserrat-Light", size: 12)
+        newsTitleLabel.text = newsItem.name
+        newsTitleLabel.numberOfLines = 2
+        newsTitleLabel.lineBreakMode = .byTruncatingTail
+        newsTitleLabel.textColor = UIColor("#090816")
+        newsTitleLabel.font = UIFont(name: "Montserrat-Medium", size: 16)
+        newsDescLabel.numberOfLines = 3
+        newsDescLabel.lineBreakMode = .byTruncatingTail
+        newsDescLabel.text = newsItem.description
+        newsDescLabel.textColor = UIColor("#090816")
+        newsDescLabel.font = UIFont(name: "Montserrat-Regular", size: 14)
+        selectionStyle = .none
+    }
+    
     func updateFavImage() {
         let imageName = isFavorite ? "Save" : "Save2"
         favImage.image = UIImage(named: imageName)

@@ -8,7 +8,6 @@
 import UIKit
 import SDWebImage
 
-
 class HomeViewController: BaseVC {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -17,7 +16,6 @@ class HomeViewController: BaseVC {
     
     var selectedCategoryIndex: IndexPath?
     
-    let newsService = NewsService()
     
     let mockData: [NewsMockData] = [
         NewsMockData(newsImage: "NewsImage1", tagTitle: "WEBTEKNO", newsTitle: "2023 Nisan ayında en çok satan sedan otomobiller!", newsDesc: "Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo.Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGoWise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo. Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo.Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo.Wise hesabınızda farklı para birimleri dahil olmak üzere para bulunduramayacaksınız. TransferGo..."),
@@ -44,7 +42,6 @@ class HomeViewController: BaseVC {
         titleLabel.font = UIFont(name: "Montserrat-Medium", size: 16)
         titleLabel.textColor = UIColor("#090816")
         tag = Categories.allCases[selectedCategoryIndex?.row ?? 0].tag
-        indicator.startAnimating()
         loadFavoriteNews()
         fetcNews(tag: tag)
     }
@@ -135,9 +132,10 @@ class HomeViewController: BaseVC {
     
     private func fetcNews(tag: String) {
         indicator.startAnimating()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            
-            self.newsService.fetchNews(tag: tag) { response in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            guard let self else { return }
+            NewsService.shared.fetchNews(tag: tag) { [weak self] response in
+                guard let self else { return }
                 switch response {
                 case .success(let response):
                     self.news = response.result
@@ -227,26 +225,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = newsTableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
         let newsItem = news[indexPath.row]
-        
-        cell.isFavorite = newsItem.isFavorite
-        cell.updateFavImage()
-        cell.newsImage.sd_setImage(with: URL(string: newsItem.image))
+        cell.configureCell(newsItem: newsItem)
         cell.indexPath = indexPath
-        cell.tagTitleLabel.text = newsItem.source
-        cell.tagTitleLabel.textColor = .black
-        cell.tagTitleLabel.font = UIFont(name: "Montserrat-Light", size: 12)
-        cell.newsTitleLabel.text = newsItem.name
-        cell.newsTitleLabel.numberOfLines = 2
-        cell.newsTitleLabel.lineBreakMode = .byTruncatingTail
-        cell.newsTitleLabel.textColor = UIColor("#090816")
-        cell.newsTitleLabel.font = UIFont(name: "Montserrat-Medium", size: 16)
-        cell.newsDescLabel.numberOfLines = 3
-        cell.newsDescLabel.lineBreakMode = .byTruncatingTail
-        cell.newsDescLabel.text = newsItem.description
-        cell.newsDescLabel.textColor = UIColor("#090816")
-        cell.newsDescLabel.font = UIFont(name: "Montserrat-Regular", size: 14)
-        cell.selectionStyle = .none
-        
         return cell
     }
     

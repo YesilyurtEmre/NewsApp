@@ -10,9 +10,7 @@ import UIKit
 final class FavoriteVC: UIViewController {
     @IBOutlet weak var favTitleLbl: UILabel!
     @IBOutlet weak var favTableView: UITableView!
-    
-    let newsService = NewsService()
-    
+        
     
     var news: [FavoriteNewsEntity] = []
     
